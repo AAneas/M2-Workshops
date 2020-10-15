@@ -1,0 +1,42 @@
+Feature "création d'un atelier": créer un atelier
+    remplir inMemoryWorkshop avec les données entrées en titre et description
+
+    Scenario "création correcte":
+        Given Je suis sur la page /workshop
+        And Je remplis le champ Name
+        And Je remplis le champ description
+        When Je clique sur Save
+        Then Le titre et la description de l'atelier sont sauvegardées
+        And Je reviens sur la page racine
+    
+    Scenario "création annulée":
+        Given Je suis sur la page /workshop
+        And Je remplis ou non le champ Name
+        And Je remplis ou non le champ description
+        When Je clique sur Cancel (ou quitte la page)
+        Then Rien n'est sauvegardé
+        And Je reviens sur la page racine
+
+    Scenario "oubli":
+        Given Je suis sur la page /workshop
+        And Je remplis un champ
+        But Je ne remplis pas l'autre champ
+        When Je clique sur Save
+        Then Un message me dit "Veuillez compléter ce champ" affiché sous le champ à compléter
+        And Les champs deviennent encadrés de rouge
+        And Mon curseur est placé dans le champ à compléter et ce champ
+
+Feature "Affichage de la liste des ateliers": afficher les ateliers sur la page racine
+
+    Scenario "affichage":
+        Given Je me connecte (ou raffraîchis) la page racine
+        Then Tous les ateliers enregistrés y sont affichés
+
+    Scenario "ajout":
+        Given Je clique sur le bouton "Create new workshop"
+        Then Je me retrouve sur la page /workshop
+        When Je remplis les champs
+        And Je clique sur Save
+        Then Je suis envoyé sur la page racine
+        And Le nouvel atelier est affiché, il possède le titre et la description que j'ai entrés
+
