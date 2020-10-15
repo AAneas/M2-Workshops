@@ -2,7 +2,7 @@ FROM node:10
 
 WORKDIR .
 
-RUN git clone https://github.com/aaneas/m2-workshops-td5.git . \
+RUN git clone https://github.com/aaneas/m2-workshops.git . \
     && npm install
 
 EXPOSE 27017
